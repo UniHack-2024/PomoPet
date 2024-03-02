@@ -7,6 +7,7 @@ let aboutButton = document.getElementById('about-button');
 let authorsButton = document.getElementById('authors-button');
 let startStudyingButton = document.getElementById('start-studying-button');
 let volumeButton = document.getElementById('volume-button');
+let volumeButtonX = document.getElementById('volume-button-X');
 let loginRegisterButton = document.getElementById('login-register-button');
 let leaderboard = document.getElementById('leaderboard');
 let audioElement = document.getElementById('pomoPetAudio');
@@ -107,7 +108,9 @@ authorsButton.addEventListener('click', () => {
 volumeButton.addEventListener('click', () => {
     if (!audioElement.paused) {
         audioElement.pause();
+        volumeButtonX.style.display = 'none';
     } else {
         audioElement.play();
+        volumeButtonX.style.display = 'block';
     }
 });
