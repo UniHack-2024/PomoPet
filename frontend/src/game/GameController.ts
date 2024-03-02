@@ -12,15 +12,25 @@ export const LINEWIDTH = 2;
 
 export class GameController {
   app: PIXI.Application<PIXI.ICanvas>
+  canvas: HTMLCanvasElement
   state: GameState;
 
   /**
    * initializes the app. Doesn't actually do anything
    * @param app
    */
-  constructor(app: PIXI.Application<PIXI.ICanvas>) {
+  constructor(app: PIXI.Application<PIXI.ICanvas>, canvas: HTMLCanvasElement) {
     this.app = app;
     this.state = new TitleState();
+    this.canvas = canvas;
+  }
+
+  hideCanvas() {
+    this.canvas.style.display = 'none'
+  }
+
+  showCanvas() {
+    this.canvas.style.display = 'block'
   }
 
   /**

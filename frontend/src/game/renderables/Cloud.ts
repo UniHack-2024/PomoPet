@@ -24,8 +24,8 @@ export class Cloud extends Sprite {
     parentContainer.addChild(cloud)
   }
 
-  move() {
-    this.position.x += Math.random() * 50 + 5;
+  move(d: number) {
+    this.position.x += (Math.random() * 50 + 5) * (d / 100);
 
     if (this.position.x > CANVASWIDTH) {
         this.position.x = -50;

@@ -31,13 +31,14 @@ export class Planet extends Sprite {
     parentContainer.addChild(planet)
   }
 
-    move(): number {
-        this.position.x += 25;
+
+    move(d: number): number {
+        this.position.x += 25 * (d / 100);
 
         if (!this.is_going_down) {
-            this.position.y -= 25;
+            this.position.y -= 25 * (d / 100);
         } else {
-            this.position.y += 45;
+            this.position.y += 45 * (d / 100);
         }
 
         if (this.position.x >= CHANGE_PLANET_X_THRESHOLD && this.position.y >= CHANGE_PLANET_Y_THRESHOLD) {

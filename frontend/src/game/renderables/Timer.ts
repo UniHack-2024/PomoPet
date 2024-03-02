@@ -7,15 +7,17 @@ import { Sprite } from './Sprite';
 export class Timer extends Sprite {
   position: Vector2;
   value: number;
+  othertext: string
 
-  constructor(position: Vector2, initialValue: number) {
+  constructor(position: Vector2, initialValue: number, othertext: string) {
     super();
     this.position = position;
     this.value = initialValue;
+    this.othertext = othertext
   }
 
   render(parentContainer: PIXI.Container<PIXI.DisplayObject>) {
-    let message = new PIXI.Text(`Time remaining ${this.value}`, {
+    let message = new PIXI.Text(`${this.othertext} ${this.value}`, {
       fontFamily: 'Arial', // Font family
       fontSize: 36,        // Font size
       fill: 0xff0000,      // Fill color

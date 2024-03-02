@@ -22,7 +22,7 @@ export class IdleState extends GameState {
   sky: Sky;
   planet : Planet = new Planet({x: -50, y:260});
   peacefulBackground: PeacefulBackground = new PeacefulBackground({x: 0, y: 0});
-  timer: Timer = new Timer({x: 250, y: 20}, IDLECOUNT)
+  timer: Timer = new Timer({x: 250, y: 50}, IDLECOUNT, 'Your pet is sleeping. \n They will wake up in:')
   sleepingTomato: SleepingTomato = new SleepingTomato({x: 150, y:400});
 
   constructor(gameController: GameController) {
@@ -37,19 +37,25 @@ export class IdleState extends GameState {
   callbacks: any[] = []
   intervalId: number = -1;
   enterState() {
-    this.app.ticker.maxFPS = 1;
+    this.app.ticker.maxFPS = 30;
     (this.app.renderer as any).backgroundColor = 0x08f4e2;
+
     const callback = (d: number) => {
       this.app.stage.removeChildren()
+      const planetOuput = this.planet.move(d);
+      this.sky.checkTransition(planetOuput);
+      this.cloud1.move(d);
+      this.cloud2.move(d);
 
       // render
       this.sky.render(this.app.stage)
       this.planet.render(this.app.stage)
       this.peacefulBackground.render(this.app.stage);
       this.sleepingTomato.render(this.app.stage);
-      this.timer.render(this.app.stage)
+      
       this.cloud1.render(this.app.stage)
       this.cloud2.render(this.app.stage)
+      this.timer.render(this.app.stage)
     };
 
     this.callbacks.push(callback)
@@ -58,12 +64,6 @@ export class IdleState extends GameState {
     this.intervalId = setInterval(() => {
       // update
       this.sleepingTomato.idleAnimation();
-      this.cloud1.move();
-      this.cloud2.move();
-
-      const planetOuput = this.planet.move();
-      this.sky.checkTransition(planetOuput);
-
       this.timer.decrement();
     }, 1000)
 

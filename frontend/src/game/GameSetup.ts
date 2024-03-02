@@ -10,7 +10,8 @@ const app = new PIXI.Application({
   backgroundColor: "lightblue",
 });
 
-export const gameController = new GameController(app);
+export const gameController = new GameController(app, canvas);
+gameController.hideCanvas();
 
 // REMOVE THIS LINE TO SHOW LOGIN PAGE UPON ENTERING
 // gameController.loadGame()

@@ -35,7 +35,7 @@ export class AwakeState extends GameState {
   HIGH = 100;
   interval = getRandomInt(this.LOW, this.HIGH);
   mode = 'waiting'
-  timer: Timer = new Timer({x: 250, y: 20}, AWAKECOUNT)
+  timer: Timer = new Timer({x: 250, y: 50}, AWAKECOUNT, 'Have a break. \n Time remaining: ')
   instructions: GenericText[] = [new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 136}, 'take a break by playing this epic game'), new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 100}, 'press [space] to jump')];
 
 
