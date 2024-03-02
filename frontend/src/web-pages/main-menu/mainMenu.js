@@ -10,6 +10,7 @@ let volumeButton = document.getElementById('volume-button');
 let loginRegisterButton = document.getElementById('login-register-button');
 let leaderboard = document.getElementById('leaderboard');
 let audioElement = document.getElementById('pomoPetAudio');
+let popUpElement = document.getElementById('pop-up');
 
 ////////////////////////////////////////////////////////////
 // FUNCTIONS // 
@@ -32,7 +33,34 @@ const hideAllElements = () => {
     startStudyingButton.style.display = 'none';
 }
 
+const addPopUp = () => {
+    popUpElement.style.display = 'block';
+}
 
+const removePopUp = () => {
+    popUpElement.style.display = 'none';
+}
+
+// accepts a string whihc is the title
+// the title is also a txt file name which is the paragraph
+const changePopUpText = async (category) => {
+    let popupHeader = document.querySelector('#pop-up h3');
+    let popupParagraph = document.querySelector('#pop-up p');
+    let filename = category + ".txt";
+    popupHeader.textContent = category;
+    try {
+        const response = await fetch(filename);
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        // Read the text content from the response
+        const text = await response.text();
+        const formattedText = text.replace(/\n/g, '<br>');
+        popupParagraph.innerHTML = formattedText;
+    } catch (error) {
+        console.error('Error fetching or setting the text: ', error);
+    }
+};
 
 ////////////////////////////////////////////////////////////
 // EVENT LISTENERS // 
@@ -44,10 +72,13 @@ aboutButton.addEventListener('click', () => {
         hideAllElements()
         aboutButton.style.display = 'block';
         areElementsVisible = false;
+        addPopUp();
+        changePopUpText("About");
         aboutButton.textContent = 'Go Back';
     } else {
         unhideAllElements()
         areElementsVisible = true;
+        removePopUp();
         aboutButton.textContent = 'About';
     }
 });
@@ -62,10 +93,13 @@ authorsButton.addEventListener('click', () => {
         hideAllElements()
         authorsButton.style.display = 'block';
         areElementsVisible = false;
+        addPopUp();
+        changePopUpText("Authors");
         authorsButton.textContent = 'Go Back';
     } else {
         unhideAllElements()
         areElementsVisible = true;
+        removePopUp();
         authorsButton.textContent = 'Authors';
     }
 });
