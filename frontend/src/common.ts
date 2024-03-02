@@ -33,3 +33,8 @@ export const foreground_zIndex = 4;
 // Change Sun/Moon theshold
 export const CHANGE_PLANET_Y_THRESHOLD = 350;
 export const CHANGE_PLANET_X_THRESHOLD = 350;
+
+// Sky color
+
+export const DAY_SKY_COLOR = 0x08f4e2;
+export const NIGHT_SKY_COLOR = 0x5a35d4;

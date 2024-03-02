@@ -19,7 +19,7 @@ export class IdleState extends GameState {
   bunny: Bunny = new Bunny({x: 250, y:250});
   cloud1: Cloud = new Cloud({x: 50, y:50});
   cloud2: Cloud = new Cloud({x: 230, y:20});
-  sky: Sky = new Sky({x: 0, y:0});
+  sky: Sky;
   planet : Planet = new Planet({x: -50, y:260});
   peacefulBackground: PeacefulBackground = new PeacefulBackground({x: 0, y: 0});
   timer: Timer = new Timer({x: 250, y: 20}, IDLECOUNT)
@@ -29,6 +29,8 @@ export class IdleState extends GameState {
     super();
     this.gameController = gameController;
     this.app = gameController.app;
+
+    this.sky = new Sky({x: 0, y:0}, this.app)
     this.enterState();
   }
 
