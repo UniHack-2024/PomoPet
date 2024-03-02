@@ -17,11 +17,10 @@ export class GenericText extends Sprite {
   render(parentContainer: PIXI.Container<PIXI.DisplayObject>) {
     let message = new PIXI.Text(this.value, {
       fontFamily: 'Arial', // Font family
-      fontSize: 36,        // Font size
-      fill: 0xff0000,      // Fill color
+      fontSize: 20,        // Font size
+      fill: '#0000ff',      // Fill color
       align: 'center',     // Text alignment
-      stroke: '#ffffff',   // Stroke color
-      strokeThickness: 4   // Stroke thickness
+      strokeThickness: 1   // Stroke thickness
   });
 
     message.anchor.set(0.5);

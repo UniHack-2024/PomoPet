@@ -1,4 +1,4 @@
-import { CANVASHEIGHT, CANVASWIDTH, getRandomInt } from "../../common";
+import { AWAKECOUNT, AWAKETIMEOUT, CANVASHEIGHT, CANVASWIDTH, getRandomInt } from "../../common";
 import { GameController } from "../GameController";
 import { GrassBackground } from "../renderables/GrassBackground";
 import { Spike } from "../renderables/Spike";
@@ -7,6 +7,8 @@ import { GameState } from "./GameState";
 import * as PIXI from 'pixi.js';
 import { GROUND_LEVEL } from "./constants";
 import { GenericText } from "../renderables/GenericText";
+import { Timer } from "../renderables/Timer";
+import { IdleState } from "./IdleState";
 
 export class AwakeState extends GameState {
   gameController: GameController
@@ -20,6 +22,7 @@ export class AwakeState extends GameState {
   }
 
   callbacks: any[] = []
+  intervalId: number = -1;
   userInputCallback: any;
   grassBackground1: GrassBackground = new GrassBackground({x: 0, y: CANVASHEIGHT - 150});
   grassBackground2: GrassBackground = new GrassBackground({x: CANVASWIDTH, y: CANVASHEIGHT - 150})
@@ -32,7 +35,9 @@ export class AwakeState extends GameState {
   HIGH = 100;
   interval = getRandomInt(this.LOW, this.HIGH);
   mode = 'waiting'
-  instructions: GenericText[] = [new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 136}, 'Game Time!'), new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 100}, 'press [space] to jump')];
+  timer: Timer = new Timer({x: 250, y: 20}, AWAKECOUNT)
+  instructions: GenericText[] = [new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 136}, 'take a break by playing this epic game'), new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 100}, 'press [space] to jump')];
+
 
   enterState() {
     this.app.ticker.maxFPS = 30;
@@ -64,7 +69,7 @@ export class AwakeState extends GameState {
     }
 
     document.addEventListener('keydown', this.userInputCallback);
-
+    
     const callback = (d: number) => {
       this.app.stage.removeChildren()
 
@@ -114,6 +119,8 @@ export class AwakeState extends GameState {
         }
       }
 
+      this.timer.render(this.app.stage)
+
       this.grassBackground1.render(this.app.stage);
       this.grassBackground2.render(this.app.stage);
       this.tomato.render(this.app.stage)
@@ -121,13 +128,21 @@ export class AwakeState extends GameState {
         spike.render(this.app.stage)
       }
 
-
     };
+
+    this.intervalId = setInterval(() => {
+      this.timer.decrement()
+    }, 1000)
+
+    setTimeout(() => {
+      this.gameController.changeGameState(new IdleState(this.gameController));
+    }, AWAKETIMEOUT)
 
 
     this.callbacks.push(callback)
     this.app.ticker.add(callback)
   }
+  
 
   /**
    * remove all callbacks added to the ticker
@@ -135,6 +150,7 @@ export class AwakeState extends GameState {
   leaveState() {
     this.callbacks.forEach(callback => {this.app.ticker.remove(callback)});
     document.removeEventListener('keydown', this.userInputCallback);
+    clearInterval(this.intervalId);
     this.app.stage.removeChildren();
   }
 
