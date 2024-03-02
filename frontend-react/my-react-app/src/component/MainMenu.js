@@ -3,6 +3,18 @@ import React from 'react';
 import volume_button from './images/volume_button.png';
 import sun from './images/sun.png';
 
+const handleLoginSubmit = async (event) => {
+  event.preventDefault();
+
+  // UZMAN CAN ADD REQUEST FOR LOGIN HERE
+};
+
+const handleRegisterSubmit = async (event) => {
+  event.preventDefault();
+
+  // UZMAN CAN ADD REQUEST FOR REGISTER HERE
+};
+
 const MainMenu = () => {
   return (
     <div>
@@ -14,6 +26,35 @@ const MainMenu = () => {
             <div id="title">POMO PET</div>
         </div>
         <div class="ground"></div>
+
+        <form onSubmit={handleLoginSubmit} class="login">
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" />
+
+          <br />
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+          <br />
+
+          <input type="submit" value="Login"/>
+        </form>
+
+        <form onSubmit={handleRegisterSubmit} class="register">
+
+          <label for="email">email:</label>
+          <input type="email" id="email" name="email" />
+          <br />
+
+          <label for="username">Username:</label>
+          <input type="text" id="username" name="username" />
+
+          <br />
+          <label for="password">Password:</label>
+          <input type="password" id="password" name="password" />
+          <br />
+
+          <input type="submit" value="Login"/>
+        </form>
 
         <div id="leaderboard">
             <h3>Leaderboard</h3>
@@ -82,18 +123,18 @@ const hideAllElements = () => {
 // EVENT LISTENERS // 
 ////////////////////////////////////////////////////////////
 
-aboutButton.addEventListener('click', () => {
-    // if it has been clicked already then hide all elemtns otherwise unhide all elemnts
-    if (areElementsVisible === true) {
-        hideAllElements()
-        aboutButton.style.display = 'block';
-        areElementsVisible = false;
-        aboutButton.textContent = 'Go Back';
-    } else {
-        unhideAllElements()
-        areElementsVisible = true;
-        aboutButton.textContent = 'About';
-    }
-});
+// aboutButton.addEventListener('click', () => {
+//     // if it has been clicked already then hide all elemtns otherwise unhide all elemnts
+//     if (areElementsVisible === true) {
+//         hideAllElements()
+//         aboutButton.style.display = 'block';
+//         areElementsVisible = false;
+//         aboutButton.textContent = 'Go Back';
+//     } else {
+//         unhideAllElements()
+//         areElementsVisible = true;
+//         aboutButton.textContent = 'About';
+//     }
+// });
 
 export default MainMenu;
