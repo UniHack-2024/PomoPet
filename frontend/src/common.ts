@@ -19,11 +19,14 @@ export function getRandomInt(min: number, max: number) {
   max = Math.floor(max);
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
-export const IDLECOUNT = 100
+export const IDLECOUNT = 2
 export const IDLETIMEOUT = IDLECOUNT * 1000;
 
-export const AWAKECOUNT = 10;
+export const AWAKECOUNT = 1;
 export const AWAKETIMEOUT = AWAKECOUNT * 1000;
+
+export const EXERCISECOUNT = 10;
+export const EXERCISETIMEOUT = EXERCISECOUNT * 1000;
 
 // Rendering Priorities
 export const background_zIndex = 0;

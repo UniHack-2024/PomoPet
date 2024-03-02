@@ -14,6 +14,7 @@ export class GameController {
   app: PIXI.Application<PIXI.ICanvas>
   canvas: HTMLCanvasElement
   state: GameState;
+  idleCycleCount: number;
 
   /**
    * initializes the app. Doesn't actually do anything
@@ -23,6 +24,7 @@ export class GameController {
     this.app = app;
     this.state = new TitleState();
     this.canvas = canvas;
+    this.idleCycleCount = 0;
   }
 
   hideCanvas() {
