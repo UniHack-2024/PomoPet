@@ -5,6 +5,8 @@ import { Spike } from "../renderables/Spike";
 import { TomatoSide } from "../renderables/TomatoSide";
 import { GameState } from "./GameState";
 import * as PIXI from 'pixi.js';
+import { GROUND_LEVEL } from "./constants";
+import { GenericText } from "../renderables/GenericText";
 
 export class AwakeState extends GameState {
   gameController: GameController
@@ -29,57 +31,97 @@ export class AwakeState extends GameState {
   LOW = 80;
   HIGH = 100;
   interval = getRandomInt(this.LOW, this.HIGH);
-  
-
+  mode = 'waiting'
+  instructions: GenericText[] = [new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 136}, 'Game Time!'), new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 100}, 'press [space] to jump')];
 
   enterState() {
     this.app.ticker.maxFPS = 30;
 
     this.userInputCallback = (event: KeyboardEvent) => {
-      console.log('userInputCallback')
       const key = event.key;
-      if (key == ' ') {
-        if (this.tomato.position.y == CANVASHEIGHT - 150) {
+      if (this.mode == 'waiting') {
+        if (key == ' ') {
+          this.mode = 'playing';
           this.tomato.jump();
         }
-        
+      } else if (this.mode == 'playing') {
+        if (key == ' ') {
+          if (this.tomato.position.y == GROUND_LEVEL) {
+            this.tomato.jump();
+          }
+        }
+      } else if (this.mode == 'game-over') {
+        if (key == ' ') {
+          this.tomato.sprite = this.tomato.normalSprite;
+          this.spikes = [];
+          this.grassBackground1 = new GrassBackground({x: 0, y: CANVASHEIGHT - 150});
+          this.grassBackground2 = new GrassBackground({x: CANVASWIDTH, y: CANVASHEIGHT - 150});
+          this.tomato.dead = false;
+          this.tomato.position.x = 100;
+          this.mode = 'playing'
+        }
       }
     }
+
     document.addEventListener('keydown', this.userInputCallback);
 
     const callback = (d: number) => {
       this.app.stage.removeChildren()
-      this.grassBackground1.position.x -= this.speed * d;
-      this.grassBackground2.position.x -= this.speed * d;
 
-      if (this.grassBackground1.position.x < -CANVASWIDTH) {
-        this.grassBackground1.position.x = 0;
-        this.grassBackground2.position.x = CANVASWIDTH;
-      }
-      
-      this.t += d;
-      if (this.t > this.interval) {
-        this.t = 0;
-        this.interval = getRandomInt(this.LOW, this.HIGH);
-        this.spikes.push(new Spike({x: CANVASWIDTH + 100, y: CANVASHEIGHT - 150}));
-      }
+      if (this.mode == 'waiting') {
+        for (let text of this.instructions) {
+          text.render(this.app.stage)
+        }
 
-      for (let spike of this.spikes) {
-        spike.position.x -= this.speed * d;
-
-        if (spike.position.x < -20) {
-          this.spikes = this.spikes.filter(s => s != spike);
+      } else if (this.mode == 'playing') {
+        this.grassBackground1.position.x -= this.speed * d;
+        this.grassBackground2.position.x -= this.speed * d;
+  
+        if (this.grassBackground1.position.x < -CANVASWIDTH) {
+          this.grassBackground1.position.x = 0;
+          this.grassBackground2.position.x = CANVASWIDTH;
+        }
+        
+        this.t += d;
+        if (this.t > this.interval) {
+          this.t = 0;
+          this.interval = getRandomInt(this.LOW, this.HIGH);
+          this.spikes.push(new Spike({x: CANVASWIDTH + 100, y: GROUND_LEVEL}));
+        }
+  
+        for (let spike of this.spikes) {
+          spike.position.x -= this.speed * d;
+  
+          if (spike.position.x < -20) {
+            this.spikes = this.spikes.filter(s => s != spike);
+          }
+        }
+  
+        this.tomato.updateY(d)
+  
+        for (let spike of this.spikes) {
+          if (this.tomato.collidesWith(spike)) {
+            this.mode = 'game-over'
+            this.tomato.position.x -= 50;
+            this.tomato.dead = true;
+          }
+        }
+      } else if (this.mode == 'game-over') {
+        this.instructions = [new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 136}, 'Game over!'), new GenericText({x: CANVASWIDTH / 2, y: CANVASHEIGHT / 2 - 100}, 'press [space] to try again')]
+        
+        for (let text of this.instructions) {
+          text.render(this.app.stage)
         }
       }
-      this.tomato.updateY(d)
-      
+
       this.grassBackground1.render(this.app.stage);
       this.grassBackground2.render(this.app.stage);
+      this.tomato.render(this.app.stage)
       for (let spike of this.spikes) {
         spike.render(this.app.stage)
       }
 
-      this.tomato.render(this.app.stage)
+
     };
 
 
