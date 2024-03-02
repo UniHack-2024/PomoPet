@@ -38,8 +38,8 @@ export class Sky extends Sprite {
     .to({ tint: color }, 200) // 2000 milliseconds duration
     .start(); 
 
-    this.app.ticker.add(() => {
-        TWEEN.update();
-    });
+    // this.app.ticker.add(() => {
+    //     TWEEN.update();
+    // });
   }
 }
