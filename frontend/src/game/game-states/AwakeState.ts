@@ -1,5 +1,7 @@
+import { CANVASHEIGHT } from "../../common";
 import { GameController } from "../GameController";
 import { Bunny } from "../renderables/Bunny";
+import { GrassBackground } from "../renderables/GrassBackground";
 import { GameState } from "./GameState";
 import * as PIXI from 'pixi.js';
 
@@ -16,15 +18,16 @@ export class AwakeState extends GameState {
   }
 
   callbacks: any[] = []
+  grassBackground: GrassBackground = new GrassBackground({x: 0, y: CANVASHEIGHT - 200});
   enterState() {
     this.app.ticker.maxFPS = 30;
+
     const callback = (d: number) => {
       this.app.stage.removeChildren()
-      // update
-      this.bunny.awakeAnimation(d);
-      // render
-      this.bunny.render(this.app.stage);
+      this.grassBackground.render(this.app.stage);
     };
+
+
     this.callbacks.push(callback)
     this.app.ticker.add(callback)
   }

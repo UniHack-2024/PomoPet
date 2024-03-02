@@ -2,7 +2,7 @@ import * as PIXI from "pixi.js";
 import { GameController } from "./GameController";
 import { CANVASHEIGHT, CANVASWIDTH } from "../common";
 
-const canvas = document.getElementById("canvas") as any;
+const canvas = document.getElementById("canvas") as HTMLCanvasElement;
 const app = new PIXI.Application({
   view: canvas,
   width: CANVASWIDTH,

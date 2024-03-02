@@ -53,8 +53,6 @@ export class IdleState extends GameState {
     clearInterval(this.intervalId)
     this.app.stage.removeChildren();
   }
-
-
 }
 
 export { GameState };

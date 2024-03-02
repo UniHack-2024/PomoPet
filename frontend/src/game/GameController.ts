@@ -27,7 +27,7 @@ export class GameController {
    * called when the user logs in
    */
   loadGame() {
-    this.changeGameState(new IdleState(this))
+    this.changeGameState(new AwakeState(this))
   }
 
   changeGameState(newState: GameState) {

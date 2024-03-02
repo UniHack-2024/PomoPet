@@ -33,5 +33,4 @@ export class Timer extends Sprite {
   decrement() {
     this.value--;
   }
-
 }
