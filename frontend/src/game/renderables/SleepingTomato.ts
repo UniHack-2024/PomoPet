@@ -5,7 +5,7 @@ import * as PIXI from 'pixi.js';
 export class SleepingTomato extends Sprite {
 
   position: Vector2;
-  tomatoStates: Array<PIXI.Sprite> = [PIXI.Sprite.from('pngs/sleepState1.png'),
+  readonly tomatoStates: Array<PIXI.Sprite> = [PIXI.Sprite.from('pngs/sleepState1.png'),
   PIXI.Sprite.from('pngs/sleepState2.png'), PIXI.Sprite.from('pngs/sleepState3.png')];
   state: number;
   constructor(position: Vector2) {
