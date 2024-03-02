@@ -29,3 +29,7 @@ export const AWAKETIMEOUT = AWAKECOUNT * 1000;
 export const background_zIndex = 0;
 export const objects_zIndex = 2;
 export const foreground_zIndex = 4;
+
+// Change Sun/Moon theshold
+export const CHANGE_PLANET_Y_THRESHOLD = 350;
+export const CHANGE_PLANET_X_THRESHOLD = 350;
