@@ -1,6 +1,7 @@
 import { GameController } from "../GameController";
 import * as PIXI from 'pixi.js';
 import { Bunny } from "../renderables/Bunny";
+import { SleepingTomato } from "../renderables/SleepingTomato";
 import { AwakeState } from "./AwakeState";
 import { GameState } from "./GameState";
 import { Timer } from "../renderables/Timer";
@@ -11,6 +12,7 @@ export class IdleState extends GameState {
   app: PIXI.Application<PIXI.ICanvas>
   bunny: Bunny = new Bunny({x: 250, y:250});
   timer: Timer = new Timer({x: 250, y: 20}, 10)
+  sleepingTomato: SleepingTomato = new SleepingTomato({x: 250, y:250});
 
 
   constructor(gameController: GameController) {
