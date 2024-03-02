@@ -73,15 +73,12 @@ button {
     transform: translateY(5px);
 }
 
-#login-button {
+#login-register-button {
     top: 1%;
     right: 0;
+    width: 20%;
 }
 
-#register-button {
-    top: 8%;
-    right: 0;
-}
 
 #about-button {
     bottom: 9%;
@@ -111,7 +108,28 @@ button {
     transform: translate(-50%, -50%) translateY(5px) translateX(0);
 }
 
-#
+#leaderboard {
+    position: absolute;
+    margin: 0;
+    padding: 0;
+    background-image: url(tiled_planks.png);
+    bottom: 1%;
+    right: 1%;
+    width: 15%;
+    height: 40%;
+    z-index: 10;
+    border-color: white;
+    border-width: 20px;
+    border-radius: 20px;
+    border: solid;
+    color: white;
+    font-size: 1.5vw;
+
+}
+
+#leaderboard h3 {
+    text-align: center;
+}
 
 
 /* 
