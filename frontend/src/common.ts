@@ -41,3 +41,4 @@ export const CHANGE_PLANET_X_THRESHOLD = 350;
 
 export const DAY_SKY_COLOR = 0x08f4e2;
 export const NIGHT_SKY_COLOR = 0x5a35d4;
+export const EXERCISE_SKY_COLOR = 0x0ea7f2;

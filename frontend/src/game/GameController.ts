@@ -5,6 +5,7 @@ import { Bunny } from './renderables/Bunny';
 import { GameState, IdleState } from './game-states/IdleState';
 import { TitleState } from './game-states/TitleState';
 import { AwakeState } from './game-states/AwakeState';
+import { ExerciseState } from './game-states/ExerciseState';
 
 export const NODERADIUS = 50;
 export const LINEWIDTH = 2;
@@ -40,7 +41,8 @@ export class GameController {
    */
   loadGame() {
     // this.changeGameState(new AwakeState(this))
-    this.changeGameState(new IdleState(this))
+    // this.changeGameState(new IdleState(this))
+    this.changeGameState(new ExerciseState(this))
   }
 
   changeGameState(newState: GameState) {

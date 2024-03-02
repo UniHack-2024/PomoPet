@@ -7,9 +7,9 @@ import { Sky } from "../renderables/Sky";
 import { AwakeState } from "./AwakeState";
 import { GameState } from "./GameState";
 import { Timer } from "../renderables/Timer";
-import { CANVASHEIGHT, EXERCISECOUNT, EXERCISETIMEOUT } from "../../common";
+import { CANVASHEIGHT, EXERCISECOUNT, EXERCISETIMEOUT, EXERCISE_SKY_COLOR } from "../../common";
 import { PeacefulBackground } from "../renderables/PeacefulBackground";
-import { Cloud } from "../renderables/Cloud";
+import { SmallItem } from "../renderables/SmallItem";
 import { Planet } from "../renderables/Planet";
 import { Game } from "../Game";
 import { IdleState } from "./IdleState";
@@ -19,10 +19,10 @@ export class ExerciseState extends GameState {
   gameController: GameController
   app: PIXI.Application<PIXI.ICanvas>
   bunny: Bunny = new Bunny({x: 250, y:250});
-  cloud1: Cloud = new Cloud({x: 50, y:50});
-  cloud2: Cloud = new Cloud({x: 230, y:20});
+  item1: SmallItem = new SmallItem({x: 50, y:50}, './pngs/dumbbell.png');
+  item2: SmallItem = new SmallItem({x: 250, y:200}, './pngs/shoe.png');
+  item3: SmallItem = new SmallItem({x: 250, y:120}, './pngs/bicycle.png');
   sky: Sky;
-  planet : Planet = new Planet({x: -50, y:260});
   peacefulBackground: PeacefulBackground = new PeacefulBackground({x: 0, y: 0});
   timer: Timer = new Timer({x: 250, y: 50}, EXERCISECOUNT, 'EXERCISE TIME!!!!\n TIME REMAINING:')
   exerciseTomato: ExerciseTomato = new ExerciseTomato({x: 150, y:400});
@@ -33,7 +33,7 @@ export class ExerciseState extends GameState {
     this.app = gameController.app;
 
     this.sky = new Sky({x: 0, y:0}, this.app)
-
+    this.sky.changeColor(EXERCISE_SKY_COLOR)
     this.enterState();
   }
 
@@ -45,19 +45,18 @@ export class ExerciseState extends GameState {
 
     const callback = (d: number) => {
       this.app.stage.removeChildren()
-      const planetOuput = this.planet.move(d);
-      this.sky.checkTransition(planetOuput);
-      this.cloud1.move(d);
-      this.cloud2.move(d);
+      this.item1.move(d);
+      this.item2.move(d);
+      this.item3.move(d);
 
       // render
       this.sky.render(this.app.stage)
-      this.planet.render(this.app.stage)
+      this.item1.render(this.app.stage)
+      this.item2.render(this.app.stage)
+      this.item3.render(this.app.stage)
       this.peacefulBackground.render(this.app.stage);
       this.exerciseTomato.render(this.app.stage);
-      
-      this.cloud1.render(this.app.stage)
-      this.cloud2.render(this.app.stage)
+
       this.timer.render(this.app.stage)
     };
 

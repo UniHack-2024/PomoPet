@@ -42,4 +42,8 @@ export class Sky extends Sprite {
         TWEEN.update();
     });
   }
+
+  changeColor(color : number) {
+    this.color = color;
+  }
 }
