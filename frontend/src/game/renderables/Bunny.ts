@@ -19,9 +19,14 @@ export class Bunny extends Sprite {
   }
 
   t = 0;
-  update(d: number): void {
+  idleAnimation(d: number): void {
     // console.log(d);
     this.t += d / 100;
     this.position.x = 250 + 100 * Math.sin(this.t)
+  }
+
+  awakeAnimation(d: number) {
+    this.t += d / 100;
+    this.position.y = 250 + 100 * Math.sin(this.t)
   }
 }

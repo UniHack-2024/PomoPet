@@ -13,4 +13,4 @@ const app = new PIXI.Application({
 export const gameController = new GameController(app);
 
 // REMOVE THIS LINE TO SHOW LOGIN PAGE UPON ENTERING
-gameController.loadGame()
+// gameController.loadGame()
