@@ -6,9 +6,10 @@ let areElementsVisible = true;
 let aboutButton = document.getElementById('about-button');
 let authorsButton = document.getElementById('authors-button');
 let startStudyingButton = document.getElementById('start-studying-button');
-// let volumeButton = document.getElementById('volume-button');
+let volumeButton = document.getElementById('volume-button');
 let loginRegisterButton = document.getElementById('login-register-button');
 let leaderboard = document.getElementById('leaderboard');
+let audioElement = document.getElementById('pomoPetAudio');
 
 ////////////////////////////////////////////////////////////
 // FUNCTIONS // 
@@ -18,7 +19,6 @@ const unhideAllElements = () => {
     aboutButton.style.display = 'inline-block';
     authorsButton.style.display = 'inline-block';
     startStudyingButton.style.display = 'inline-block';
-    // volumeButton.style.display = 'none';
     loginRegisterButton.style.display = 'inline-block';
     leaderboard.style.display = 'block';
 };
@@ -49,5 +49,31 @@ aboutButton.addEventListener('click', () => {
         unhideAllElements()
         areElementsVisible = true;
         aboutButton.textContent = 'About';
+    }
+});
+
+loginRegisterButton.addEventListener('click', () => {
+    // google code    
+});
+
+authorsButton.addEventListener('click', () => {
+    // if it has been clicked already then hide all elemtns otherwise unhide all elemnts
+    if (areElementsVisible === true) {
+        hideAllElements()
+        authorsButton.style.display = 'block';
+        areElementsVisible = false;
+        authorsButton.textContent = 'Go Back';
+    } else {
+        unhideAllElements()
+        areElementsVisible = true;
+        authorsButton.textContent = 'Authors';
+    }
+});
+
+volumeButton.addEventListener('click', () => {
+    if (!audioElement.paused) {
+        audioElement.pause();
+    } else {
+        audioElement.play();
     }
 });
