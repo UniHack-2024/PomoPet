@@ -51,3 +51,21 @@ aboutButton.addEventListener('click', () => {
         aboutButton.textContent = 'About';
     }
 });
+
+loginRegisterButton.addEventListener('click', () => {
+    // google code    
+});
+
+authorsButton.addEventListener('click', () => {
+    // if it has been clicked already then hide all elemtns otherwise unhide all elemnts
+    if (areElementsVisible === true) {
+        hideAllElements()
+        authorsButton.style.display = 'block';
+        areElementsVisible = false;
+        authorsButton.textContent = 'Go Back';
+    } else {
+        unhideAllElements()
+        areElementsVisible = true;
+        authorsButton.textContent = 'Authors';
+    }
+});
