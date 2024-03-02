@@ -13,3 +13,11 @@ export const rootStyles: React.CSSProperties = {
 
 export const CANVASWIDTH = 500
 export const CANVASHEIGHT = 500
+
+export const IDLECOUNT = 10
+export const IDLETIMEOUT = IDLECOUNT * 1000;
+
+// Rendering Priorities
+export const background_zIndex = 0;
+export const objects_zIndex = 2;
+export const foreground_zIndex = 4;
