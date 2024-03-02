@@ -1,6 +1,6 @@
 
 import * as PIXI from 'pixi.js';
-import { Vector2 } from "../../common";
+import { Vector2, foreground_zIndex } from "../../common";
 import { Sprite } from './Sprite';
 
 
@@ -27,6 +27,7 @@ export class Timer extends Sprite {
     message.anchor.set(0.5);
     message.x = this.position.x
     message.y = this.position.y
+    message.zIndex = foreground_zIndex;
     parentContainer.addChild(message)
   }
 
