@@ -15,6 +15,7 @@ export class GameController {
   app: PIXI.Application<PIXI.ICanvas>
   canvas: HTMLCanvasElement
   state: GameState;
+  // used for game logic only!!!
   idleCycleCount: number;
 
   /**
@@ -41,8 +42,8 @@ export class GameController {
    */
   loadGame() {
     // this.changeGameState(new AwakeState(this))
-    // this.changeGameState(new IdleState(this))
-    this.changeGameState(new ExerciseState(this))
+    this.changeGameState(new IdleState(this))
+    //this.changeGameState(new ExerciseState(this))
   }
 
   changeGameState(newState: GameState) {
