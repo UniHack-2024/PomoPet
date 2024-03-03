@@ -9,7 +9,7 @@ function App() {
 
   return (
     <>
-      {playing ? <Game></Game> : <MainMenu setPlaying={setPlaying}></MainMenu>} 
+      {playing ? <Game></Game> : <MainMenu setPlaying={setPlaying}></MainMenu>}
     </>
   )
 }

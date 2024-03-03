@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { rootStyles } from "../common";
 
-export function LeaderBoard({setShowLeaderboard} : {setShowLeaderboard: any}) {
+export async function LeaderBoard({ setShowLeaderboard }: { setShowLeaderboard: any }) {
 
   const leaderBoardStyles: React.CSSProperties = {
     backgroundColor: "white",
@@ -13,6 +13,13 @@ export function LeaderBoard({setShowLeaderboard} : {setShowLeaderboard: any}) {
     textAlign: 'left'
   };
 
+  const leaderboard = fetch("http://localhost:3000/leaderboard", {
+    method: "GET"
+  });
+
+  console.log(leaderboard);
+
+
   return (
     <div style={leaderBoardStyles}>
       <button onClick={() => setShowLeaderboard(false)}>close leaderboard</button>
@@ -20,7 +27,7 @@ export function LeaderBoard({setShowLeaderboard} : {setShowLeaderboard: any}) {
       <div>#1</div>
       <div>#2</div>
       <div>#3</div>
-      
+
     </div>
   )
 }
@@ -37,8 +44,8 @@ export function GameInterface() {
   return (
     <div style={rootStyles}>
       <div style={flexBoxStyles}><button onClick={() => setShowLeaderboard(true)}>show leaderboard</button></div>
-      {showLeaderBoard && <LeaderBoard setShowLeaderboard={setShowLeaderboard}/>}
-      
+      {showLeaderBoard && <LeaderBoard setShowLeaderboard={setShowLeaderboard} />}
+
     </div>
   );
 }
