@@ -5,8 +5,8 @@ import sun from './images/sun.png';
 export default function MainMenu({setPlaying}: {setPlaying: any}) {
   return (
     <div>
-        <audio controls loop id="pomoPetAudio">
-            <source src="PomoPetTheme.mp3" type="audio/mpeg"/>
+        <audio controls loop id="pomoPetAudio" autoPlay>
+          <source src="/audio/PomoPetTheme.mp3" type="audio/mpeg"/>
         </audio>
         <img src={sun} id="main-menu-sun"/>
         <div className ="sky">
