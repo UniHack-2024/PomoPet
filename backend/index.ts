@@ -110,12 +110,12 @@ app.get('/success', async (req: Request, res: Response) => {
 })
 
 
-/*
 app.get("/", (req: Request, res: Response) => {
   //res.send("Express + TypeScript Server");
   res.redirect('http://localhost:5173/')
 });
 
+/*
 app.post("/register", async (req: Request, res: Response) => {
   const data = req.body;
 
