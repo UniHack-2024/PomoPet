@@ -2,9 +2,16 @@ import './mainMenu.css';
 import volume_button from './assets/volume_button.png';
 import sun from './assets/sun.png';
 import pomoPetTheme from './assets/PomoPetTheme.mp3';
+import React, { useState } from 'react';
 
 export default function MainMenu({setPlaying}: {setPlaying: any}) {
-  return (
+    const [audioPlaying, setAudioPlaying] = useState(false);
+
+    const handleVolumeClick = () => {
+        setAudioPlaying(!audioPlaying);
+      };
+  
+    return (
     <div>
         <audio controls loop id="pomoPetAudio">
             <source src={pomoPetTheme} type="audio/mpeg"/>
@@ -36,7 +43,7 @@ export default function MainMenu({setPlaying}: {setPlaying: any}) {
 
         <button id="login-register-button" className ="small-button"> Login/Register </button>
         
-        <button id="volume-button" className="small-button">
+        <button id="volume-button" className="small-button" onClick={handleVolumeClick}>
             <img src={volume_button}/>
         </button>
         <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" id="volume-button-X">
