@@ -6,6 +6,26 @@ import "./game.css";
 
 export function Game() {
   const canvas = useRef() as any;
+  let id = '';
+
+  useEffect(() => {
+    if (document.cookie && document.cookie !== '') {
+      const cookies = document.cookie.split(';');
+      const name = "id";
+      for (let i = 0; i < cookies.length; i++) {
+        const cookie = cookies[i].trim();
+        if (cookie.substring(0, name.length + 1) === `${name}=`) {
+          id = decodeURIComponent(cookie.substring(name.length + 1));
+        }
+      }
+    }
+
+
+
+    console.log(id);
+  }, [])
+
+
   useEffect(() => {
     const app = new PIXI.Application({
       view: canvas.current,

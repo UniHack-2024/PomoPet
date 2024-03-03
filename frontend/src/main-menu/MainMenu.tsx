@@ -2,34 +2,34 @@ import "./mainMenu.css";
 import volume_button from "./assets/volume_button.png";
 import sun from "./assets/sun.png";
 import pomoPetTheme from "./assets/PomoPetTheme.mp3";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-function InnerHTML({text}: {text: string}) {
-    const lines = text.split('\n');
-    return (
-        <>
-        {lines.map(l => <div>{l}</div>)}
-        </>
-        )
+function InnerHTML({ text }: { text: string }) {
+  const lines = text.split('\n');
+  return (
+    <>
+      {lines.map(l => <div>{l}</div>)}
+    </>
+  )
 
 }
 
 function Popup({ pageShown }: { pageShown: string }) {
   console.log(pageShown);
 
-  
+
   if (pageShown == "about") {
     return (
       <div id="pop-up">
         <h3>About</h3>
-        <p> <InnerHTML text={pomoPetInstructions}/> </p>
+        <p> <InnerHTML text={pomoPetInstructions} /> </p>
       </div>
     );
   } else if (pageShown == "authors") {
     return (
       <div id="pop-up">
         <h3>Authors</h3>
-        <p> <InnerHTML text={projectAuthors}/></p>
+        <p> <InnerHTML text={projectAuthors} /></p>
       </div>
     );
   } else {
@@ -38,15 +38,33 @@ function Popup({ pageShown }: { pageShown: string }) {
 }
 
 function LeadeBoard() {
+  const [leaderboardData, setLeaderboardData]: any = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const leaderboard = await fetch("http://localhost:3000/leaderboard", {
+          method: "GET"
+        });
+
+        const response: { id: String, username: String, pomo_cycles: Number }[] = (await leaderboard.json()).leaderboard;
+        console.log(response);
+        setLeaderboardData(response);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <div id="leaderboard">
       <h3>Leaderboard</h3>
       <ol>
-        <li>Ava Patel</li>
-        <li>Miguel Santos</li>
-        <li>Yasmin Al-Farsi</li>
-        <li>Elijah Kim</li>
-        <li>Nina Petrova</li>
+        {leaderboardData.map((item: any, index: any) => (
+          <li key={index}>{item.username}</li>
+        ))}
       </ol>
     </div>
   );
@@ -138,11 +156,14 @@ export default function MainMenu({ setPlaying }: { setPlaying: any }) {
       {<Popup pageShown={pageShown}></Popup>}
 
       {pageShown == "normal" && (
-        <button id="login-register-button" className="small-button">
+        <button id="login-register-button" className="small-button" onClick={() => {
+          window.location.href = "http://localhost:3000/google";
+        }}>
           {" "}
           Login/Register{" "}
         </button>
-      )}
+      )
+      }
 
       <button id="volume-button" className="small-button">
         <img src={volume_button} />
@@ -157,25 +178,29 @@ export default function MainMenu({ setPlaying }: { setPlaying: any }) {
         <line x1="0" y1="60" x2="60" y2="0" stroke="black" stroke-width="5" />
       </svg> */}
 
-      {pageShown == "normal" && (
-        <button id="start-studying-button" onClick={() => setPlaying(true)}>
-          {" "}
-          Start Studying!
-        </button>
-      )}
+      {
+        pageShown == "normal" && (
+          <button id="start-studying-button" onClick={() => setPlaying(true)}>
+            {" "}
+            Start Studying!
+          </button>
+        )
+      }
 
       {<AboutButton pageShown={pageShown} setPageShown={setPageShown} />}
 
-      {pageShown == "normal" && (
-        <button
-          id="authors-button"
-          className="small-button"
-          onClick={() => setPageShown("authors")}
-        >
-          {" "}
-          Authors{" "}
-        </button>
-      )}
-    </div>
+      {
+        pageShown == "normal" && (
+          <button
+            id="authors-button"
+            className="small-button"
+            onClick={() => setPageShown("authors")}
+          >
+            {" "}
+            Authors{" "}
+          </button>
+        )
+      }
+    </div >
   );
 }
