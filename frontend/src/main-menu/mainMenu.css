@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Title';
-    src: url('./images/light_pixel-7.ttf') format('truetype');
+    src: url('./assets/light_pixel-7.ttf') format('truetype');
 }
 
 html, body {
@@ -51,7 +51,7 @@ button {
     position: absolute;
     margin: 0;
     padding: 0;
-    background-image: url(./images/tiled_planks.png);
+    background-image: url(./assets/tiled_planks.png);
     border-width: 10px;
     border-radius: 20px;
     border: solid;
@@ -99,6 +99,16 @@ button {
     height: 50px;
 }
 
+#volume-button-X {
+    position: absolute; 
+    top: 8%;
+    right: 1%;
+    padding: 0;
+    margin: 0;
+    z-index: 100;
+    pointer-events: none;
+}
+
 #pomoPetAudio {
     display: none;
 }
@@ -119,6 +129,39 @@ button {
     top: -20%;
     left: -10%;
     z-index: 5;
+}
+
+#pop-up {
+    margin: 0;
+    padding: 1%;
+    padding-right: 2%;
+    position: absolute;
+    top: 72%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 45%;
+    width: 55%;
+    z-index: 50;
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+    border-radius: 20px;
+    display: none;
+    background-image: url(assets/tiled_planks.png);
+    color: white;
+    font-size: 1.5vw;
+    overflow-y: auto;
+}
+
+#pop-up h3 {
+    padding: 0;
+    margin: 0;
+}
+
+#pop-up p {
+    padding: 0;
+    margin: 0;
+    margin-top: 2%;
 }
 
 #start-studying-button { 
@@ -143,7 +186,7 @@ button {
     position: absolute;
     margin: 0;
     padding: 0;
-    background-image: url(./images/tiled_planks.png);
+    background-image: url(./assets/tiled_planks.png);
     bottom: 1%;
     right: 1%;
     width: 15%;
@@ -183,11 +226,3 @@ button {
     border-radius: 20px;
     border: solid;
 }
-
-
-/* 
-@media screen and (max-width: 100px) {
-    @page {
-      page-orientation: rotate-left;
-    }
-} */

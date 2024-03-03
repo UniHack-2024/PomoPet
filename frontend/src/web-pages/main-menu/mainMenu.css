@@ -1,6 +1,11 @@
 @font-face {
+    font-family: 'Regular';
+    src: url('Regular.ttf') format('truetype');
+}
+
+@font-face {
     font-family: 'Title';
-    src: url('light_pixel-7.ttf') format('truetype');
+    src: url('Title.ttf') format('truetype');
 }
 
 html, body {
@@ -8,7 +13,7 @@ html, body {
     margin: 0;
     padding: 0;
     overflow: hidden;
-    font-family: 'Pixelify Sans', Arial;
+    font-family: 'Regular';
 }
 
 audio {
@@ -90,8 +95,18 @@ button {
     right: 1%;
     padding: 0;
     margin: 0;
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
+}
+
+#volume-button-X {
+    position: absolute; 
+    top: 8%;
+    right: 1%;
+    padding: 0;
+    margin: 0;
+    z-index: 100;
+    pointer-events: none;
 }
 
 #pomoPetAudio {
@@ -114,6 +129,39 @@ button {
     top: -20%;
     left: -10%;
     z-index: 5;
+}
+
+#pop-up {
+    margin: 0;
+    padding: 1%;
+    padding-right: 2%;
+    position: absolute;
+    top: 72%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    height: 45%;
+    width: 55%;
+    z-index: 50;
+    border-style: solid;
+    border-color: white;
+    border-width: 5px;
+    border-radius: 20px;
+    display: none;
+    background-image: url(tiled_planks.png);
+    color: white;
+    font-size: 1.5vw;
+    overflow-y: auto;
+}
+
+#pop-up h3 {
+    padding: 0;
+    margin: 0;
+}
+
+#pop-up p {
+    padding: 0;
+    margin: 0;
+    margin-top: 2%;
 }
 
 #start-studying-button { 

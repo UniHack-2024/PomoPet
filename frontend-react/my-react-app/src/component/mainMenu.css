@@ -11,6 +11,20 @@ html, body {
     font-family: 'Pixelify Sans', Arial;
 }
 
+
+.login {
+    position: absolute;
+    top: 20%;
+    right: 5%;
+    z-index: 3;
+}
+
+.register {
+    position: absolute;
+    top: 40%;
+    right: 5%;
+}
+
 audio {
     position: absolute;
     z-index: 10;

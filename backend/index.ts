@@ -2,7 +2,11 @@ import express, { Express, Request, Response } from "express";
 import dotenv from "dotenv";
 import cors from 'cors';
 import asyncify from 'express-asyncify';
+import session from 'express-session'
 import { PrismaClient } from "@prisma/client";
+var passport = require('passport');
+var GoogleStrategy = require('passport-google-oidc');
+
 
 const app: Express = asyncify(express());
 const port = 3000;
@@ -15,11 +19,62 @@ const prisma = new PrismaClient({
   }
 })
 
+
+
 app.use(express.json());
+app.use(session({
+  secret: 'your-secret-here', // Replace with your actual secret
+  resave: false,
+  saveUninitialized: true,
+}));
 app.use(cors())
 
+const cb_url = 'http://localhost:3000/auth/google/callback'
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_CLIENT_ID,
+  clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL: cb_url,
+}, (issuer:any, profile:any, cb:any) => {
+  console.log(profile, issuer)
+  // and call cb(null, user) or cb(null, false) accordingly
+  if (profile && profile.id && profile.displayName) {
+    // Valid profile, return the display name
+    cb(null, profile.displayName);
+  } else {
+    // Invalid profile, return false
+    cb(null, false);
+  }
+}));
+
+passport.serializeUser((user:any, done:any) => {
+  // Serialize the user ID (or any unique identifier) into the session
+  console.log("Serializing", user)
+  done(null, user);
+});
+
+passport.deserializeUser((anything:any, done:any) => {
+  // Retrieve the user from the database based on the serialized ID
+  // Example: findById(id, (err, user) => done(err, user));
+  console.log("Deserializing ", anything)
+  done(null, anything); // Replace with your actual user retrieval logic
+});
+
+app.get('/google', passport.authenticate('google', { scope: ['openid', 'profile'] }));
+
+app.get('/auth/google/callback',
+    passport.authenticate('google'),
+    (req, res) => {
+        // Successful authentication
+        console.log("yoho")
+        res.redirect('/');
+    }
+);
+
+
 app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TypeScript Server");
+  //res.send("Express + TypeScript Server");
+  res.redirect('http://localhost:5173/')
 });
 
 app.post("/register", async (req: Request, res: Response) => {

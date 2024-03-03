@@ -15,10 +15,13 @@
     <audio controls autoplay loop id="pomoPetAudio">
         <source src="PomoPetTheme.mp3" type="audio/mpeg">
     </audio>
+    
     <img src="/frontend/public/pngs/sun.png" id="main-menu-sun">
+    
     <div class="sky">
         <div id="title">POMO PET</div>
     </div>
+    
     <div class="ground"></div>
 
     <!-- Absolute Positions -->
@@ -33,11 +36,20 @@
         </ol>
     </div>
 
+    <div id="pop-up">
+        <h3>Sample </h3>
+        <p> Sample </p>
+    </div>
+
     <button id="login-register-button" class="small-button"> Login/Register </button>
     
     <button id="volume-button" class="small-button">
         <img src="/frontend/public/pngs/volume_button.png">
     </button>
+    <svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" id="volume-button-X">
+        <line x1="0" y1="0" x2="60" y2="60" stroke="black" stroke-width="5"/>
+        <line x1="0" y1="60" x2="60" y2="0" stroke="black" stroke-width="5"/>
+    </svg>
 
     <button id="start-studying-button"> Start Studying!</button>
 
