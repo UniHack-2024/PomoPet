@@ -4,21 +4,32 @@ import sun from "./assets/sun.png";
 import pomoPetTheme from "./assets/PomoPetTheme.mp3";
 import { useState } from "react";
 
+function InnerHTML({text}: {text: string}) {
+    const lines = text.split('\n');
+    return (
+        <>
+        {lines.map(l => <div>{l}</div>)}
+        </>
+        )
+
+}
+
 function Popup({ pageShown }: { pageShown: string }) {
   console.log(pageShown);
 
+  
   if (pageShown == "about") {
     return (
       <div id="pop-up">
         <h3>About</h3>
-        <p> {pomoPetInstructions} </p>
+        <p> <InnerHTML text={pomoPetInstructions}/> </p>
       </div>
     );
   } else if (pageShown == "authors") {
     return (
       <div id="pop-up">
         <h3>Authors</h3>
-        <p> {projectAuthors} </p>
+        <p> <InnerHTML text={projectAuthors}/></p>
       </div>
     );
   } else {
@@ -31,11 +42,11 @@ function LeadeBoard() {
     <div id="leaderboard">
       <h3>Leaderboard</h3>
       <ol>
-        <li>first</li>
-        <li>second</li>
-        <li>third</li>
-        <li>fourth</li>
-        <li>fifth</li>
+        <li>Ava Patel</li>
+        <li>Miguel Santos</li>
+        <li>Yasmin Al-Farsi</li>
+        <li>Elijah Kim</li>
+        <li>Nina Petrova</li>
       </ol>
     </div>
   );
@@ -136,7 +147,7 @@ export default function MainMenu({ setPlaying }: { setPlaying: any }) {
       <button id="volume-button" className="small-button">
         <img src={volume_button} />
       </button>
-      <svg
+      {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         width="60"
         height="60"
@@ -144,7 +155,7 @@ export default function MainMenu({ setPlaying }: { setPlaying: any }) {
       >
         <line x1="0" y1="0" x2="60" y2="60" stroke="black" stroke-width="5" />
         <line x1="0" y1="60" x2="60" y2="0" stroke="black" stroke-width="5" />
-      </svg>
+      </svg> */}
 
       {pageShown == "normal" && (
         <button id="start-studying-button" onClick={() => setPlaying(true)}>
