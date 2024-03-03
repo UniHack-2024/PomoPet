@@ -1,12 +1,13 @@
 import './mainMenu.css';
 import volume_button from './assets/volume_button.png';
 import sun from './assets/sun.png';
+import pomoPetTheme from './assets/PomoPetTheme.mp3';
 
 export default function MainMenu({setPlaying}: {setPlaying: any}) {
   return (
     <div>
         <audio controls loop id="pomoPetAudio">
-            <source src="/assets/PomoPetTheme.mp3" type="audio/mpeg"/>
+            <source src={pomoPetTheme} type="audio/mpeg"/>
         </audio>
         
         <img src={sun} id="main-menu-sun"/>
