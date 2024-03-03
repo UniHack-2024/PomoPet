@@ -41,7 +41,8 @@ export class AwakeState extends GameState {
 
   enterState() {
     this.app.ticker.maxFPS = 30;
-
+    const audio = new Audio('../../public/PomoPetTheme.mp3');
+    audio.play();
     this.userInputCallback = (event: KeyboardEvent) => {
       const key = event.key;
       if (this.mode == 'waiting') {
@@ -136,6 +137,7 @@ export class AwakeState extends GameState {
 
     setTimeout(() => {
       this.gameController.changeGameState(new IdleState(this.gameController));
+      audio.pause();
     }, AWAKETIMEOUT)
 
 
