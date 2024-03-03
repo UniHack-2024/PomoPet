@@ -2,7 +2,7 @@ import "./mainMenu.css";
 import volume_button from "./assets/volume_button.png";
 import sun from "./assets/sun.png";
 import pomoPetTheme from "./assets/PomoPetTheme.mp3";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Component } from "react";
 
 function InnerHTML({ text }: { text: string }) {
   const lines = text.split('\n');
@@ -139,9 +139,9 @@ export default function MainMenu({ setPlaying }: { setPlaying: any }) {
 
   return (
     <div>
-      <audio controls loop id="pomoPetAudio">
+      {/* <audio controls loop id="pomoPetAudio">
         <source src={pomoPetTheme} type="audio/mpeg" />
-      </audio>
+      </audio> */}
 
       <img src={sun} id="main-menu-sun" />
 
@@ -164,10 +164,8 @@ export default function MainMenu({ setPlaying }: { setPlaying: any }) {
         </button>
       )
       }
+      {<VolumeButton></VolumeButton>}
 
-      <button id="volume-button" className="small-button">
-        <img src={volume_button} />
-      </button>
       {/* <svg
         xmlns="http://www.w3.org/2000/svg"
         width="60"
@@ -203,4 +201,34 @@ export default function MainMenu({ setPlaying }: { setPlaying: any }) {
       }
     </div >
   );
+}
+
+
+class VolumeButton extends Component {
+  state = {
+      audio: new Audio(pomoPetTheme),
+      isPlaying: false,
+  };
+
+  playPause = () => {
+      let isPlaying = this.state.isPlaying;
+
+      if (isPlaying) {
+          this.state.audio.pause();
+      } else {
+          this.state.audio.play();
+      }
+
+      this.setState({ isPlaying: !isPlaying });
+  };
+
+  render() {
+      return (
+          <div>
+              <button id="volume-button" className="small-button" onClick={this.playPause}>
+                  <img src={volume_button} />
+              </button>
+          </div>
+      );
+  }
 }
